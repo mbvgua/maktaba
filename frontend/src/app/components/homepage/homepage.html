@@ -1,0 +1,510 @@
+<!--svg sprite at top of container. for easy reuse-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <!--success checkmark-->
+  <symbol id="inclusive-checkmark" viewBox="0 -960 960 960" fill="currentColor">
+    <path
+      d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+    />
+  </symbol>
+  <!--not included checkmark-->
+  <symbol id="not-inclusive-checkmark" viewBox="0 -960 960 960">
+    <path
+      d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+    />
+  </symbol>
+</svg>
+<!--end svg sprite-->
+
+<!-- Main Content -->
+<main class="flex-1 py-25 min-h-screen">
+  <!--mesh like design-->
+  <div
+    aria-hidden="true"
+    class="w-full absolute -top-[40rem] left-1/2 -z-10 h-[80rem] -translate-x-1/2 bg-[image:linear-gradient(to_right,_#e2e8f0_1px,_transparent_1px),_linear-gradient(to_bottom,_#e2e8f0_1px,_transparent_1px)] bg-[length:70px_70px] [mask-image:radial-gradient(circle,#000_10%,transparent_70%)]"
+  ></div>
+  <!--end mesh-liek design-->
+
+  <!--START HERO SECTION-->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in">
+      Unlock Knowledge. Empower
+      <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        Your
+      </span>
+      Future.
+    </h1>
+    <p class="text-xl text-gray-600 mb-8 animate-fade-in max-w-2xl mx-auto">
+      Learn from curated courses designed to grow your skills — anytime, anywhere.
+    </p>
+
+    <button
+      class="bg-gradient-to-br from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold text-lg hover:from-blue-700 hover:to-purple-700 animate-bounce transition-all duration-300 shadow-lg mt-4"
+    >
+      Get Started
+    </button>
+  </div>
+  <!--END HERO SECTION-->
+
+  <!--START TABS SECTION-->
+  <div class="max-w-7xl mx-auto p-10">
+    <div class="text-center mb-10">
+      <h2 class="text-4xl font-bold text-gray-800">
+        Transform
+        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >your</span
+        >
+        career
+      </h2>
+      <p class="text-gray-500 font-medium mt-2">Choose a course to get started</p>
+    </div>
+
+    <div class="p-4 mx-auto">
+      <ul
+        class="w-max flex gap-2 relative before:absolute before:w-full before:bottom-0 before:border-b-2 before:border-gray-200"
+      >
+        <li
+          id="homeTab"
+          class="tab relative text-blue-700 font-semibold hover:text-blue-700 text-[15px] text-center bg-gray-50 py-3 px-6 border-b-2 border-blue-700 cursor-pointer transition-all"
+        >
+          Home
+        </li>
+        <li
+          id="contentTab"
+          class="tab relative text-slate-600 font-medium hover:text-blue-700 text-[15px] text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
+        >
+          Content
+        </li>
+        <li
+          id="profileTab"
+          class="tab relative text-slate-600 font-medium hover:text-blue-700 text-[15px] text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
+        >
+          Profile
+        </li>
+      </ul>
+
+      <div id="homeContent" class="tab-content max-w-2xl block mt-8">
+        <h4 class="text-base font-semibold text-slate-900">Welcome to your dashboard</h4>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          This is your personal space where you can monitor activity, access important tools, and
+          manage your account. Quickly view your recent projects, notifications, and updates all in
+          one place. Stay productive by navigating through the tabs to explore content, manage your
+          profile, or start something new.
+        </p>
+      </div>
+
+      <div id="contentContent" class="tab-content max-w-2xl hidden mt-8">
+        <h4 class="text-base font-semibold text-slate-900">Content Management</h4>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          Here you can manage all your uploaded documents, posts, and drafts. You can create new
+          entries, update existing content, or organize items using tags and folders. Everything is
+          autosaved in real time, so you never lose your work. Need to collaborate? Invite team
+          members and assign editing rights as needed.
+        </p>
+      </div>
+
+      <div id="profileContent" class="tab-content max-w-2xl hidden mt-8">
+        <h4 class="text-base font-semibold text-slate-900">Your Profile</h4>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          This section lets you update your personal information, manage your preferences, and
+          customize your experience. Add a profile picture, change your display name, connect
+          third-party accounts, or configure notification settings. Keeping your profile up to date
+          ensures better collaboration and account security.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--END TABS SECTION-->
+
+  <!--START PRICING SECTION-->
+  <div class="max-w-7xl mx-auto p-10">
+    <div class="text-center mb-10">
+      <h2 class="text-4xl font-bold text-gray-800">
+        Choose
+        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >your</span
+        >
+        plan
+      </h2>
+      <p class="text-gray-500 font-medium mt-2">Select the plan that best fits your needs</p>
+    </div>
+
+    <!-- card grids  -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- card1 -->
+      <div
+        class="w-full p-6 border border-gray-200 rounded-lg border-t-purple-600 border-t-4 shadow hover:shadow-xl transition"
+      >
+        <h4 class="mb-4 text-3xl">Personal Plan</h4>
+        <div>
+          <span class="text-3xl font-semibold">Ksh.</span>
+          <span class="text-5xl font-semibold">600</span>
+          <span class="text-xl text-gray-500">/month</span>
+        </div>
+        <ul class="space-y-5 my-5">
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Access to Free & Paid snippets</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimited Snippets download</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Online Editor</span>
+          </li>
+          <li class="flex items-center line-through decoration-gray-500">
+            <svg class="size-5 text-gray-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimted Fork Snippets</span
+            >
+          </li>
+          <li class="flex items-center line-through decoration-gray-500">
+            <svg class="size-5 text-gray-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Ads Free</span>
+          </li>
+          <li class="flex items-center line-through decoration-gray-500">
+            <svg class="size-5 text-gray-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">All Tools</span>
+          </li>
+        </ul>
+        <button
+          class="text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl px-4 py-2 text-lg font-bold w-full shadow-lg hover:shadow-xl"
+        >
+          Buy Now
+        </button>
+      </div>
+
+      <!-- card2 -->
+      <div
+        class="w-full p-6 border border-gray-200 rounded-lg border-t-purple-600 border-t-4 shadow hover:shadow-xl transition"
+      >
+        <h4 class="mb-4 text-3xl">Team Plan</h4>
+        <div>
+          <span class="text-3xl font-semibold">Ksh.</span>
+          <span class="text-5xl font-semibold">1500</span>
+          <span class="text-xl text-gray-500">/month</span>
+        </div>
+        <ul class="space-y-5 my-5">
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Access to Free & Paid snippets</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimited Snippets download</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Online Editor</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimted Fork Snippets</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Ads Free</span>
+          </li>
+          <li class="flex items-center line-through decoration-gray-500">
+            <svg class="size-5 text-gray-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">All Tools</span>
+          </li>
+        </ul>
+        <button
+          class="text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl px-4 py-2 text-lg font-bold w-full shadow-lg hover:shadow-xl"
+        >
+          Buy Now
+        </button>
+      </div>
+
+      <!-- card3 -->
+      <div
+        class="w-full p-6 border border-gray-200 rounded-lg border-t-purple-600 border-t-4 shadow hover:shadow-xl transition"
+      >
+        <h4 class="mb-4 text-3xl">Enterprise Plan</h4>
+        <p class="text-base font-normal text-gray-500 space-y-5 my-5">
+          More than 50 people? Get in touch and we will customize a plan that suits your needs.
+        </p>
+        <ul class="space-y-5 my-5">
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Access to Free & Paid snippets</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimited Snippets download</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Online Editor</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500"
+              >Unlimted Fork Snippets</span
+            >
+          </li>
+          <li class="flex items-center">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">Ads Free</span>
+          </li>
+          <li class="flex items-center decoration-gray-500">
+            <svg class="size-5 text-blue-700 me-2">
+              <use xlink:href="#inclusive-checkmark"></use>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500">All Tools</span>
+          </li>
+        </ul>
+        <button
+          class="text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl px-4 py-2 text-lg font-bold w-full shadow-lg hover:shadow-xl"
+        >
+          Get in Touch
+        </button>
+      </div>
+    </div>
+  </div>
+  <!--  END PRICING SECTION-->
+
+  <!--START FAQ/ACCORDION SECTION-->
+
+  <section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-10 mx-auto">
+      <!-- title -->
+      <div class="text-center mb-10">
+        <h2 class="text-4xl font-bold text-gray-800">
+          Questions
+          <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+            >you</span
+          >
+          ask
+        </h2>
+        <p class="text-gray-500 font-medium mt-2">Answers we give</p>
+      </div>
+
+      <!-- begining of faqs -->
+      <div class="mx-auto max-w-5xl divide-y divide-neutral-200 z-50">
+        <!-- 1 -->
+        <div class="py-2 rounded-2xl hover:bg-indigo-50 hover:shadow-gray-200 hover:shadow-lg">
+          <details class="group py-2 px-6 mb-8 transition-all">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+              <span
+                class="group inline-flex items-center justify-between leading-8 text-gray-900 text-lg w-full transition duration-500 text-left hover:text-indigo-600"
+              >
+                What are your hours of operation?
+              </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="text-indigo-500 border border-gray-200 transition duration-500 group-hover:text-indigo-600 group-hover:bg-white w-10 h-10 hover:bg-white rounded-full"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="group-open:animate-fadeIn mt-3 text-base text-neutral-600 font-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eros at lacus
+              feugiat hendrerit sed ut tortor. Suspendisse et magna quis elit efficitur consequat.
+              Mauris eleifend velit a pretium iaculis. Donec sagittis velit et magna euismod, vel
+              aliquet nulla malesuada. Nunc pharetra massa lectus, a fermentum arcu volutpat vel.
+            </p>
+          </details>
+        </div>
+        <!-- 2 -->
+        <div class="py-2 rounded-2xl hover:bg-indigo-50 hover:shadow-gray-200 hover:shadow-lg">
+          <details class="group py-2 px-6 mb-8 transition-all">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+              <span
+                class="group inline-flex items-center justify-between leading-8 text-gray-900 text-lg w-full transition duration-500 text-left hover:text-indigo-600"
+              >
+                What are your hours of operation?
+              </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="text-indigo-500 border border-gray-200 transition duration-500 group-hover:text-indigo-600 group-hover:bg-white w-10 h-10 hover:bg-white rounded-full"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="group-open:animate-fadeIn mt-3 text-neutral-600 font-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eros at lacus
+              feugiat hendrerit sed ut tortor. Suspendisse et magna quis elit efficitur consequat.
+              Mauris eleifend velit a pretium iaculis. Donec sagittis velit et magna euismod, vel
+              aliquet nulla malesuada. Nunc pharetra massa lectus, a fermentum arcu volutpat vel.
+            </p>
+          </details>
+        </div>
+        <!-- 3 -->
+        <div class="py-2 rounded-2xl hover:bg-indigo-50 hover:shadow-gray-200 hover:shadow-lg">
+          <details class="group py-2 px-6 mb-8 transition-all">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+              <span
+                class="group inline-flex items-center justify-between leading-8 text-gray-900 text-lg w-full transition duration-500 text-left hover:text-indigo-600"
+              >
+                What are your hours of operation?
+              </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="text-indigo-500 border border-gray-200 transition duration-500 group-hover:text-indigo-600 group-hover:bg-white w-10 h-10 hover:bg-white rounded-full"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="group-open:animate-fadeIn mt-3 text-neutral-600 font-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eros at lacus
+              feugiat hendrerit sed ut tortor. Suspendisse et magna quis elit efficitur consequat.
+              Mauris eleifend velit a pretium iaculis. Donec sagittis velit et magna euismod, vel
+              aliquet nulla malesuada. Nunc pharetra massa lectus, a fermentum arcu volutpat vel.
+            </p>
+          </details>
+        </div>
+        <!-- 4 -->
+        <div class="py-2 rounded-2xl hover:bg-indigo-50 hover:shadow-gray-200 hover:shadow-lg">
+          <details class="group py-2 px-6 mb-8 transition-all">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+              <span
+                class="group inline-flex items-center justify-between leading-8 text-gray-900 text-lg w-full transition duration-500 text-left hover:text-indigo-600"
+              >
+                What are your hours of operation?
+              </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="text-indigo-500 border border-gray-200 transition duration-500 group-hover:text-indigo-600 group-hover:bg-white w-10 h-10 hover:bg-white rounded-full"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="group-open:animate-fadeIn mt-3 text-neutral-600 font-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eros at lacus
+              feugiat hendrerit sed ut tortor. Suspendisse et magna quis elit efficitur consequat.
+              Mauris eleifend velit a pretium iaculis. Donec sagittis velit et magna euismod, vel
+              aliquet nulla malesuada. Nunc pharetra massa lectus, a fermentum arcu volutpat vel.
+            </p>
+          </details>
+        </div>
+        <!-- 5 -->
+        <div class="py-2 rounded-2xl hover:bg-indigo-50 hover:shadow-gray-200 hover:shadow-lg">
+          <details class="group py-2 px-6 mb-8 transition-all">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+              <span
+                class="group inline-flex items-center justify-between leading-8 text-gray-900 text-lg w-full transition duration-500 text-left hover:text-indigo-600"
+              >
+                What are your hours of operation?
+              </span>
+              <span class="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  class="text-indigo-500 border border-gray-200 transition duration-500 group-hover:text-indigo-600 group-hover:bg-white w-10 h-10 hover:bg-white rounded-full"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <p class="group-open:animate-fadeIn mt-3 text-neutral-600 font-medium">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis eros at lacus
+              feugiat hendrerit sed ut tortor. Suspendisse et magna quis elit efficitur consequat.
+              Mauris eleifend velit a pretium iaculis. Donec sagittis velit et magna euismod, vel
+              aliquet nulla malesuada. Nunc pharetra massa lectus, a fermentum arcu volutpat vel.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--END FAQ SECTION-->
+</main>
+<!--Main content end-->
