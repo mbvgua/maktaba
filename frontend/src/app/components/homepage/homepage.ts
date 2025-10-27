@@ -21,7 +21,7 @@ export class Homepage implements AfterViewInit {
 
         // Remove active class from all tabs
         tabs.forEach((t) => {
-          t.classList.remove('text-blue-700', 'bg-gray-50', 'border-blue-700', 'font-semibold');
+          t.classList.remove('text-purple-700', 'bg-gray-50', 'border-purple-700', 'font-semibold');
           t.classList.add('text-slate-600', 'border-gray-200', 'font-medium');
         });
 
@@ -31,7 +31,7 @@ export class Homepage implements AfterViewInit {
         }
 
         // Add active class to clicked tab
-        tab.classList.add('text-blue-700', 'bg-gray-50', 'border-blue-700', 'font-semibold');
+        tab.classList.add('text-purple-700', 'bg-gray-50', 'border-purple-700', 'font-semibold');
         tab.classList.remove('text-slate-600', 'border-gray-200', 'font-medium');
       });
     });

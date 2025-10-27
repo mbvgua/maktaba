@@ -1,13 +1,30 @@
-<div class="isolate px-6 py-24 sm:py-32 lg:px-8">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-4xl font-bold text-gray-800">Contact sales</h2>
-    <p class="mt-2 text-gray-500 font-medium m2">Talk to us!</p>
+<div class="isolate px-5 py-10 sm:py-10 lg:px-8">
+<div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+
+
+  <!--<div-->
+  <!--  aria-hidden="true"-->
+  <!--  class="w-full absolute -top-[40rem] left-1/2 -z-10 h-[80rem] -translate-x-1/2 bg-[image:linear-gradient(to_right,_#e2e8f0_1px,_transparent_1px),_linear-gradient(to_bottom,_#e2e8f0_1px,_transparent_1px)] bg-[length:70px_70px] [mask-image:radial-gradient(circle,#000_10%,transparent_70%)]"-->
+  <!--></div>-->
+
+
+  <div class="mx-auto max-w-2xl text-center z-10">
+    <h2 class="text-4xl font-bold text-gray-800">
+      Talk to
+      <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        >us</span
+      >
+    </h2>
+    <p class="mt-2 text-gray-500 font-medium m2">Tell us what you think</p>
   </div>
 
   <form class="mx-auto mt-16 max-w-xl sm:mt-20">
     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
       <div>
-        <label for="first-name" class="block text-sm/6 font-semibold">First name</label>
+        <label for="first-name" class="block text-sm/6 font-semibold text-gray-500"
+          >First name</label
+        >
         <div class="mt-2.5">
           <input
             id="first-name"
@@ -19,7 +36,7 @@
         </div>
       </div>
       <div>
-        <label for="last-name" class="block text-sm/6 font-semibold">Last name</label>
+        <label for="last-name" class="block text-sm/6 font-semibold text-gray-500">Last name</label>
         <div class="mt-2.5">
           <input
             id="last-name"
@@ -31,19 +48,7 @@
         </div>
       </div>
       <div class="sm:col-span-2">
-        <label for="company" class="block text-sm/6 font-semibold">Company</label>
-        <div class="mt-2.5">
-          <input
-            id="company"
-            type="text"
-            name="company"
-            autocomplete="organization"
-            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base outline-1 -outline-offset-1 outline-black/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
-          />
-        </div>
-      </div>
-      <div class="sm:col-span-2">
-        <label for="email" class="block text-sm/6 font-semibold">Email</label>
+        <label for="email" class="block text-sm/6 font-semibold text-gray-500">Email</label>
         <div class="mt-2.5">
           <input
             id="email"
@@ -55,7 +60,9 @@
         </div>
       </div>
       <div class="sm:col-span-2">
-        <label for="phone-number" class="block text-sm/6 font-semibold">Phone number</label>
+        <label for="phone-number" class="block text-sm/6 font-semibold text-gray-500"
+          >Phone number</label
+        >
         <div class="mt-2.5">
           <div
             class="flex rounded-md bg-white/5 outline-1 -outline-offset-1 outline-black/10 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-500"
@@ -97,7 +104,7 @@
         </div>
       </div>
       <div class="sm:col-span-2">
-        <label for="message" class="block text-sm/6 font-semibold">Message</label>
+        <label for="message" class="block text-sm/6 font-semibold text-gray-500">Message</label>
         <div class="mt-2.5">
           <textarea
             id="message"
@@ -124,9 +131,13 @@
             />
           </div>
         </div>
-        <label for="agree-to-policies" class="text-sm/6 text-gray-400">
+        <label for="agree-to-policies" class="text-sm/6 text-gray-400 italic">
           By selecting this, you agree to our
-          <a href="#" class="font-semibold whitespace-nowrap text-indigo-400">privacy policy</a>.
+          <a
+            href="#"
+            class="font-semibold whitespace-nowrap text-indigo-400 capitalize hover:underline"
+            >privacy policy</a
+          >.
         </label>
       </div>
     </div>

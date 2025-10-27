@@ -12,6 +12,13 @@
       d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
     />
   </symbol>
+  <!--heart symbol-->
+  <symbol id="heart-symbol" viewBox="0 0 64 64">
+    <path
+      d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"
+      data-original="#000000"
+    ></path>
+  </symbol>
 </svg>
 <!--end svg sprite-->
 
@@ -60,39 +67,169 @@
 
     <div class="p-4 mx-auto">
       <ul
-        class="w-max flex gap-2 relative before:absolute before:w-full before:bottom-0 before:border-b-2 before:border-gray-200"
+        class="w-max flex justify-center mx-auto gap-2 relative before:absolute before:w-full before:bottom-0 before:border-b-2 before:border-gray-200"
       >
         <li
           id="homeTab"
-          class="tab relative text-blue-700 font-semibold hover:text-blue-700 text-[15px] text-center bg-gray-50 py-3 px-6 border-b-2 border-blue-700 cursor-pointer transition-all"
+          class="tab relative text-purple-700 font-semibold hover:text-purple-600 text-center bg-gray-50 py-3 px-6 border-b-2 border-purple-700 cursor-pointer transition-all"
         >
           Home
         </li>
         <li
           id="contentTab"
-          class="tab relative text-slate-600 font-medium hover:text-blue-700 text-[15px] text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
+          class="tab relative text-slate-600 font-medium hover:text-purple-700 text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
         >
           Content
         </li>
         <li
           id="profileTab"
-          class="tab relative text-slate-600 font-medium hover:text-blue-700 text-[15px] text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
+          class="tab relative text-slate-600 font-medium hover:text-purple-700 text-center py-3 px-6 border-b-2 border-gray-200 cursor-pointer transition-all"
         >
           Profile
         </li>
       </ul>
 
-      <div id="homeContent" class="tab-content max-w-2xl block mt-8">
-        <h4 class="text-base font-semibold text-slate-900">Welcome to your dashboard</h4>
-        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-          This is your personal space where you can monitor activity, access important tools, and
-          manage your account. Quickly view your recent projects, notifications, and updates all in
-          one place. Stay productive by navigating through the tabs to explore content, manage your
-          profile, or start something new.
-        </p>
+      <div
+        id="homeContent"
+        class="tab-content w-full block border-2 py-3 px-3 border-gray-300 rounded-xl"
+      >
+        <div class="bg-white p-4">
+          <div class="mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 max-xl:gap-4 gap-6"
+            >
+              <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-3">
+                <a href="javascript:void(0)" class="block">
+                  <div class="aspect-[12/11] bg-gray-100 rounded-lg p-4">
+                    <img
+                      src="https://readymadeui.com/images/product9.webp"
+                      alt="Product 1"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <div class="flex gap-2 mt-4">
+                    <h5 class="text-base font-semibold text-slate-900">Sole Elegance</h5>
+                    <h6 class="text-base text-slate-900 font-bold ml-auto">$10.00</h6>
+                  </div>
+                  <p class="text-slate-600 text-sm mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                </a>
+                <div class="flex items-center gap-2 mt-6">
+                  <div
+                    class="bg-pink-200 hover:bg-pink-300 w-12 h-9 flex items-center justify-center rounded-lg cursor-pointer"
+                    title="Wishlist"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16px"
+                      class="fill-pink-600 inline-block"
+                      viewBox="0 0 64 64"
+                    >
+                      <use xlink:href="#heart-symbol"></use>
+                    </svg>
+                  </div>
+                  <button
+                    type="button"
+                    class="text-sm px-2 py-2 font-medium cursor-pointer w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg ml-auto outline-none border-none"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-3">
+                <a href="javascript:void(0)" class="block">
+                  <div class="aspect-[12/11] bg-gray-100 rounded-lg p-4">
+                    <img
+                      src="https://readymadeui.com/images/product10.webp"
+                      alt="Product 2"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <div class="flex gap-2 mt-4">
+                    <h5 class="text-base font-semibold text-slate-900">Urban Sneakers</h5>
+                    <h6 class="text-base text-slate-900 font-bold ml-auto">$12.00</h6>
+                  </div>
+                  <p class="text-slate-600 text-sm mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                </a>
+                <div class="flex items-center gap-2 mt-6">
+                  <div
+                    class="bg-pink-200 hover:bg-pink-300 w-12 h-9 flex items-center justify-center rounded-lg cursor-pointer"
+                    title="Wishlist"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16px"
+                      class="fill-pink-600 inline-block"
+                      viewBox="0 0 64 64"
+                    >
+                      <use xlink:href="#heart-symbol"></use>
+                    </svg>
+                  </div>
+                  <button
+                    type="button"
+                    class="text-sm px-2 py-2 font-medium cursor-pointer w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg ml-auto outline-none border-none"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-3">
+                <a href="javascript:void(0)" class="block">
+                  <div class="aspect-[12/11] bg-gray-100 rounded-lg p-4">
+                    <img
+                      src="https://readymadeui.com/images/product11.webp"
+                      alt="Product 3"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <div class="flex gap-2 mt-4">
+                    <h5 class="text-base font-semibold text-slate-900">Velvet Boots</h5>
+                    <h6 class="text-base text-slate-900 font-bold ml-auto">$14.00</h6>
+                  </div>
+                  <p class="text-slate-600 text-sm mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                </a>
+                <div class="flex items-center gap-2 mt-6">
+                  <div
+                    class="bg-pink-200 hover:bg-pink-300 w-12 h-9 flex items-center justify-center rounded-lg cursor-pointer"
+                    title="Wishlist"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16px"
+                      class="fill-pink-600 inline-block"
+                      viewBox="0 0 64 64"
+                    >
+                      <use xlink:href="#heart-symbol"></use>
+                    </svg>
+                  </div>
+                  <button
+                    type="button"
+                    class="text-sm px-2 py-2 font-medium cursor-pointer w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg ml-auto outline-none border-none"
+                  >
+                    Add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div id="contentContent" class="tab-content max-w-2xl hidden mt-8">
+      <div
+        id="contentContent"
+        class="tab-content max-w-2xl hidden border-2 py-3 px-3 border-gray-300 rounded-xl"
+      >
+        <!--<div id="contentContent" class="tab-content max-w-2xl hidden mt-8">-->
         <h4 class="text-base font-semibold text-slate-900">Content Management</h4>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">
           Here you can manage all your uploaded documents, posts, and drafts. You can create new
@@ -102,7 +239,11 @@
         </p>
       </div>
 
-      <div id="profileContent" class="tab-content max-w-2xl hidden mt-8">
+      <div
+        id="profileContent"
+        class="tab-content max-w-2xl hidden border-2 py-3 px-3 border-gray-300 rounded-xl"
+      >
+        <!--<div id="profileContent" class="tab-content max-w-2xl hidden mt-8">-->
         <h4 class="text-base font-semibold text-slate-900">Your Profile</h4>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">
           This section lets you update your personal information, manage your preferences, and
@@ -111,6 +252,28 @@
           ensures better collaboration and account security.
         </p>
       </div>
+    </div>
+
+    <div>
+      <button
+        class="mx-auto flex justify-center items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg mt-4"
+      >
+        Show more courses
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+          />
+        </svg>
+      </button>
     </div>
   </div>
   <!--END TABS SECTION-->
