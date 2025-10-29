@@ -4,6 +4,9 @@ import { Error404 } from './components/error404/error404';
 import { ContactUs } from './components/contact-us/contact-us';
 import { Courses } from './components/courses/courses';
 import { CourseSpecific } from './components/course-specific/course-specific';
+import { Register } from './components/register/register';
+import { Login } from './components/login/login';
+import { ForgotPassword } from './components/forgot-password/forgot-password';
 
 export const routes: Routes = [
   {
@@ -23,6 +26,18 @@ export const routes: Routes = [
   {
     path: 'courses/course-id',
     component: CourseSpecific,
+  },
+  {
+  path:"register",
+  component:Register,
+  },
+  {
+  path:"login",
+  component:Login,
+  },
+  {
+  path:"forgot-password",
+  component:ForgotPassword,
   },
 
   // error 404 page
