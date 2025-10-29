@@ -1,0 +1,238 @@
+<!--start svg sprite-->
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+  <!--email-->
+  <symbol id="email" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+    />
+  </symbol>
+
+  <!-- hide password-->
+  <symbol id="hide-password" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+    />
+  </symbol>
+
+  <!--show password-->
+  <symbol id="show-password" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+    />
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+  </symbol>
+
+  <!--close modal-->
+  <symbol id="close-modal" viewBox="0 0 320.591 320.591">
+    <path
+      d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
+      data-original="#000000"
+    ></path>
+    <path
+      d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
+      data-original="#000000"
+    ></path>
+  </symbol>
+</svg>
+<!--end svg sprite-->
+
+<div class="min-h-screen flex fle-col items-center justify-center">
+  <div class="py-10 px-4">
+    <div class="grid lg:grid-cols-2 items-center gap-5 max-w-6xl w-full">
+      <div
+        class="border border-slate-300 rounded-lg p-6 max-w-lg shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-lg:mx-auto"
+      >
+        <!--login title-->
+        <div class="mb-12">
+          <h2
+            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            Login
+          </h2>
+          <p class="text-slate-600 text-md mt-3 leading-relaxed">Login to continue learning</p>
+        </div>
+        <!--end login title-->
+
+        <!--start form-->
+        <form class="space-y-6">
+          <!--email-->
+          <div>
+            <label class="text-slate-900 text-base font-medium mb-2 block">Email</label>
+            <div class="relative flex items-center">
+              <input
+                name="email"
+                type="text"
+                required
+                class="w-full text-sm text-slate-600 font-medium border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                placeholder="Enter email"
+              />
+
+              <svg class="w-[27px] h-[22px] absolute right-4">
+                <use xlink:href="#email"></use>
+              </svg>
+            </div>
+          </div>
+          <!--end email-->
+
+          <!--start password-->
+          <div>
+            <label class="text-slate-900 text-sm font-medium mb-2 block">Password</label>
+            <div class="relative flex items-center">
+              <input
+                name="password"
+                type="password"
+                required
+                class="w-full text-sm text-slate-600 font-medium border border-slate-300 pl-4 pr-10 py-3 rounded-lg outline-blue-600"
+                placeholder="Enter password"
+              />
+              <svg class="w-[27px] h-[22px] absolute right-4">
+                <use xlink:href="#show-password"></use>
+              </svg>
+            </div>
+          </div>
+          <!--end pasword-->
+
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+              />
+              <label for="remember-me" class="ml-3 block text-sm text-slate-900">
+                Remember me
+              </label>
+            </div>
+            <div class="text-sm">
+              <a href="jajvascript:void(0);" class="text-blue-600 hover:underline font-medium">
+                Forgot your password?
+              </a>
+            </div>
+          </div>
+
+          <div class="!mt-12">
+            <button
+              class="hidden md:block w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-lg font-bold hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
+            >
+              Login
+            </button>
+
+            <p class="text-sm !mt-6 text-center text-slate-600 italic">
+              Don't have an account?
+              <a
+                href="javascript:void(0);"
+                class="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap"
+                >Register here</a
+              >
+            </p>
+          </div>
+        </form>
+        <!--end form-->
+      </div>
+
+      <div class="max-lg:mt-8">
+        <img
+          src="https://readymadeui.com/login-image.webp"
+          class="w-full aspect-[71/50] max-lg:w-4/5 mx-auto block object-cover"
+          alt="login img"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--enter code to verify email modal-->
+<!--<div #verifyModal class="hidden">-->
+<div #verifyModal>
+  <div
+    class="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto"
+  >
+    <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
+      <div class="flex items-center pb-3 border-b border-gray-300">
+        <h3 class="text-slate-900 text-xl font-semibold flex-1 mx-auto flex justify-center">
+          Email Verification
+        </h3>
+        <svg
+          id="closeIcon"
+          (click)="hideModal()"
+          class="w-3.5 h-3.5 ml-2 cursor-pointer shrink-0 fill-gray-400 hover:fill-red-500"
+        >
+          <use xlink:href="#close-modal"></use>
+        </svg>
+      </div>
+
+      <form id="otp-form">
+        <div
+          class="my-6 flex-col justify-center items-center text-center text-slate-600 font-medium text-sm leading-relaxed"
+        >
+          <p>We have sent a code to lan***&#64;gmail.com</p>
+          <p>Enter the OTP to verify your email</p>
+        </div>
+
+        <div class="py-5">
+          <div class="flex items-center justify-center gap-3">
+            <input
+              type="text"
+              class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-200 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              pattern="\d*"
+              maxlength="1"
+            />
+            <input
+              type="text"
+              class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-200 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              maxlength="1"
+            />
+            <input
+              type="text"
+              class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-200 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              maxlength="1"
+            />
+            <input
+              type="text"
+              class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-200 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              maxlength="1"
+            />
+          </div>
+        </div>
+
+        <div class="border-t border-gray-300 pt-6 flex justify-end gap-4 bg-white">
+          <button
+            id="closeButton"
+            (click)="hideModal()"
+            type="button"
+            class="px-4 py-2 cursor-pointer rounded-lg text-slate-900 text-sm font-medium border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="px-4 py-2 cursor-pointer rounded-lg text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+          >
+            Verify
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--NOTE: move this to the login codebock logic, if a login is -->
+<!--successful, && the email is not verified, then show this modal, asking the user to input data sent to -->
+<!--their email account. pretty neat-->
+<button
+  id="openModal"
+  (click)="showModal()"
+  type="button"
+  class="mt-4 cursor-pointer mx-auto block px-4 py-2 rounded-lg text-white text-sm font-medium border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+>
+  Open modal
+</button>
+<!--end email verification modal-->

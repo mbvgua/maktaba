@@ -12,12 +12,12 @@ export class Navbar implements AfterViewInit {
   @ViewChild('mobileMenu', { static: true }) mobileMenu!: ElementRef;
   @ViewChild('header', { static: true }) navbar!: ElementRef;
 
-  ngAfterViewInit(): void {
-    // Mobile menu toggle
-    this.mobileMenuBtn?.nativeElement.addEventListener('click', () => {
-      this.mobileMenu?.nativeElement.classList.toggle('hidden');
-    });
+  // Mobile menu toggle
+  showMobileMenu() {
+    this.mobileMenu?.nativeElement.classList.toggle('hidden');
+  }
 
+  ngAfterViewInit(): void {
     // Add some interactive animations
     document.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
       link.addEventListener('mouseenter', () => {
@@ -53,7 +53,7 @@ export class Navbar implements AfterViewInit {
         'lg:top-3',
       );
       this.navbar.nativeElement.classList.remove('sticky');
-    } else if (scrollPosition > 100) {
+    } else if (scrollPosition > 80) {
       this.navbar.nativeElement.classList.add(
         'fixed',
         'absolute',
