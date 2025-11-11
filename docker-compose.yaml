@@ -11,28 +11,20 @@ services:
     volumes:
       - ./frontend/:/usr/src/app
       - node_modules:/usr/src/app/node_modules/
-
-  # database:
-  #   container_name: maktaba_database
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   restart: unless-stopped
-  #   ports:
-  #   - "1432:1433"
-  #   environment:
-  #   - ACCEPT_EULA=Y
-  #   - MSSQL_SA_PAASSWORD=@Example25
-  #   # NOTE: lol! Hate for Msoft grows. Cant host on docker hub?!?!
-  #   # Also not using a windows base image! Speaks alot
+    depends_on:
+      - backend
 
   database:
-    image: postgres:17-alpine
-    restart: unless-stopped
+    container_name: maktaba_database
+    image: mbvgua/maktaba_database
     ports:
-      - 5432:5432
+      - 3305:3306
     environment:
-    - POSTGRES_PASSWORD=example
-    - POSTGRES_USER=root
-    - POSTGRES_DB=maktaba
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - database:/var/lib/mysql/
 
 volumes:
   node_modules:
+  database:
