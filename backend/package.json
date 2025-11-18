@@ -7,7 +7,7 @@
         "comment": "prod environment",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:build": "tsc -w",
-        "start:run": "nodemon dist/index.js",
+        "start:run": "nodemon dist/server.js",
         "start": "concurrently npm:start:*",
         "prod:build": "tsc",
         "prod": "node dist/server.js"
