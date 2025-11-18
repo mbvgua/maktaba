@@ -4,12 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "comment": "dev environment",
+        "comment": "prod environment",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:build": "tsc -w",
         "start:run": "nodemon dist/index.js",
         "start": "concurrently npm:start:*",
-        "comment": "prod environment",
         "prod:build": "tsc",
         "prod": "node dist/server.js"
     },
@@ -30,6 +29,7 @@
         "winston": "^3.18.3"
     },
     "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
         "@types/express": "^5.0.5",
         "@types/jsonwebtoken": "^9.0.10"
     }

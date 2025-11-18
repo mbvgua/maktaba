@@ -1,0 +1,12 @@
+###
+# register new users
+POST http://localhost:4000/v1/auth/register
+Content-Type: application/json
+
+{
+    "username":"lancelot",
+    "email":"lance@gmail.com",
+    "password":"@Lance25"
+}
+
+###
