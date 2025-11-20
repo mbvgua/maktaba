@@ -49,3 +49,26 @@ export const registerUserSchema = joi.object({
         "Password must contain atleast one lowercase letter,one uppercase letter, one digit and one special character",
     }),
 });
+
+export const loginUserSchema = joi.object({
+  usernameOrEmail: joi.string().required().messages({
+    "string.base": "username/email must be a string",
+    "string.required": "username/email is required",
+  }),
+  password: joi
+    .string()
+    .required()
+    .pattern(
+      new RegExp(
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,10}$",
+      ),
+    )
+    .messages({
+      "string.base": "password must be a string",
+      "string.required": "password is required",
+      "string.min":
+        "password must have a minimum number of {#limit} characters",
+      "string.pattern.base":
+        "Password must contain atleast one lowercase letter,one uppercase letter, one digit and one special character",
+    }),
+});

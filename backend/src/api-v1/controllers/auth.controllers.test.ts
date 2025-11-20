@@ -15,13 +15,13 @@ let dummyUser = {
 // create dummy users in db
 beforeAll(async () => {
   const password = "@Maximus25";
-  const salt_rounds = 9;
-  const hashed_password = await bcrypt.hash(password, salt_rounds);
+  const saltRounds = 9;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const connection = await pool.getConnection();
   await connection.query(
     "INSERT INTO users(username,email,hashed_password,role) VALUES(?,?,?,?);",
-    ["maximus", "maximus@gmail.com", hashed_password, UserRole.Admin],
+    ["maximus", "maximus@gmail.com", hashedPassword, UserRole.Admin],
   );
 });
 
@@ -37,12 +37,7 @@ afterAll(async () => {
 describe("[auth tests]", () => {
   describe("* registerUser endpoint", () => {
     it("should successfully register new users", async () => {
-      const user = {
-        username: "merlin",
-        email: "merlin@gmail.com",
-        password: "@Merlin25",
-      };
-      const response = await request.post("/v1/auth/register").send(user);
+      const response = await request.post("/v1/auth/register").send(dummyUser);
 
       expect(response.statusCode).toBe(201);
       expect(response.body).toBeDefined();
@@ -58,7 +53,7 @@ describe("[auth tests]", () => {
     });
 
     it("should return error for already existing user", async () => {
-      const dummyUser = {
+      const user = {
         username: "maximus",
         email: "maximus@gmail.com",
         password: "@Maximus25",
