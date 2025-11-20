@@ -1,21 +1,15 @@
 import { pool } from "./mysql.config";
 
-//// connect db connection before each test
-//beforeEach(async()=>{
-//    const connection = await pool.getConnection()
-//})
-//
-//// release db connection afterwards
-//afterEach(async()=>{
-//    connection.release()
-//})
-// NOTE: make the above work to prevent defining the connection everytime
+// release db connection afterwards
+afterEach(async () => {
+  const connection = await pool.getConnection();
+  connection.release();
+});
 
 describe("[database tests]", () => {
   it("should ensure app connects to database", async () => {
     const connection = await pool.getConnection();
     const [rows]: any = await connection.query(`SELECT 1+1 as results;`);
-    connection.release();
 
     expect(rows[0]).toMatchObject({ results: 2 });
   });
@@ -23,7 +17,6 @@ describe("[database tests]", () => {
   it("should ensure 'maktaba' db is created", async () => {
     const connection = await pool.getConnection();
     const [rows]: any = await connection.query(`USE maktaba;`);
-    connection.release();
 
     expect(rows).toHaveProperty("warningStatus");
     expect(rows.warningStatus).toEqual(0);
