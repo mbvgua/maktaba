@@ -97,27 +97,26 @@ export async function loginUser(request: Request, response: Response) {
    * include jwt token for use
    */
   const { usernameOrEmail, password } = request.body;
-  const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
 
   try {
-    // deal with email
-    if (emailRegex.test(usernameOrEmail)) {
-      const isValidRequest = await validationHelper(
-        request,
-        response,
-        loginUserSchema,
+    const isValidRequest = await validationHelper(
+      request,
+      response,
+      loginUserSchema,
+    );
+
+    if (isValidRequest) {
+      // get user with either username or email
+      const connection = await pool.getConnection();
+      const rows: any = await connection.query(
+        `SELECT * FROM users WHERE username=? OR email=? AND is_deleted=false;`,
+        [usernameOrEmail, usernameOrEmail],
       );
+      const user = rows[0] as IUser[];
+      connection.release();
 
-      if (isValidRequest) {
-        // make connection to db and get user
-        const connection = await pool.getConnection();
-        const rows: any = await connection.query(
-          "SELECT * FROM users WHERE email=? AND is_deleted=false",
-          [usernameOrEmail],
-        );
-        const user = rows[0] as IUser[];
-        connection.release();
-
+      // if user exists
+      if (user.length > 0) {
         // compare if passwords match
         const passwordMatch = await bcrypt.compare(
           password,
@@ -156,7 +155,7 @@ export async function loginUser(request: Request, response: Response) {
         // else if they dont match
         logger.log({
           level: "error",
-          message: `An error occurred while user of id: ${user[0].id} was loggin in.`,
+          message: `User of id: ${user[0].id} tried to login but used incorrect password.`,
           data: {
             user: {
               username: user[0].username,
@@ -177,78 +176,24 @@ export async function loginUser(request: Request, response: Response) {
           metadata: null,
         });
       }
-    }
-    // else deal with username
-    const isValidRequest = await validationHelper(
-      request,
-      response,
-      loginUserSchema,
-    );
-
-    if (isValidRequest) {
-      // make connection to db and get user
-      const connection = await pool.getConnection();
-      const rows: any = await connection.query(
-        "SELECT * FROM users WHERE username=? AND is_deleted=false",
-        [usernameOrEmail],
-      );
-      const user = rows[0] as IUser[];
-      connection.release();
-
-      // compare if passwords match
-      const passwordMatch = await bcrypt.compare(
-        password,
-        user[0].hashed_password,
-      );
-
-      // if passwords match
-      if (passwordMatch) {
-        // log occurrence
-        logger.log({
-          level: "info",
-          message: `${usernameOrEmail} has successfully logged in`,
-          data: {
-            user: {
-              username: user[0].username,
-              email: user[0].email,
-            },
-          },
-        });
-
-        // return response
-        return response.status(200).json({
-          code: 200,
-          status: "success",
-          message: `Congratulations ${user[0].username}! You have successfully logged in.`,
-          data: {
-            user: {
-              username: user[0].username,
-              email: user[0].email,
-              role: user[0].role,
-            },
-          },
-          metadata: null,
-        });
-      }
-      // else if they dont match
+      // else if not found
       logger.log({
         level: "error",
-        message: `An error occurred while user of id: ${user[0].id} was loggin in.`,
+        message: `Username/email: ${usernameOrEmail} tried to login but their account does not exist.`,
         data: {
           user: {
-            username: user[0].username,
-            email: user[0].email,
+            usernameOrEmail,
           },
         },
       });
 
-      return response.status(403).json({
-        code: 403,
+      return response.status(404).json({
+        code: 404,
         status: "error",
-        message: "Oops! Looks like the passwords do not match, try again?",
+        message: "User does not exist. Try creating an account instead?",
         data: {
           user: {
-            username: user[0].username,
+            usernameOrEmail,
           },
         },
         metadata: null,
