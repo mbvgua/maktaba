@@ -15,3 +15,10 @@ export interface IUser {
   is_verified: boolean;
   is_deleted: boolean;
 }
+
+export interface IPayload {
+  id: string;
+  username: string;
+  email: string;
+  role: UserRole;
+}

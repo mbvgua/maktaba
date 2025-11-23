@@ -170,14 +170,7 @@ describe("[auth tests]", () => {
       expect(response.body.message).toMatch(
         `Congratulations ${loginUser.usernameOrEmail}! You have successfully logged in.`,
       );
-      expect(response.body.data.user).toHaveProperty(
-        "username",
-        existingUser.username,
-      );
-      expect(response.body.data.user).toHaveProperty(
-        "email",
-        existingUser.email,
-      );
+      expect(response.body.data).toHaveProperty("token");
       expect(response.body.metadata).toBeNull();
     });
 
@@ -194,14 +187,7 @@ describe("[auth tests]", () => {
       expect(response.body.message).toMatch(
         `Congratulations ${loginUser.usernameOrEmail}! You have successfully logged in.`,
       );
-      expect(response.body.data.user).toHaveProperty(
-        "username",
-        existingUser.username,
-      );
-      expect(response.body.data.user).toHaveProperty(
-        "email",
-        existingUser.email,
-      );
+      expect(response.body.data).toHaveProperty("token");
       expect(response.body.metadata).toBeNull();
     });
 

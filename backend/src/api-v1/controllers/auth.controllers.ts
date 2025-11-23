@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenvx from "@dotenvx/dotenvx";
 
 import { pool } from "../../config/mysql.config";
-import { IUser, UserRole } from "../models/user.models";
+import { IPayload, IUser, UserRole } from "../models/user.models";
 import { logger } from "../../config/winston.config";
 import {
   loginUserSchema,
   registerUserSchema,
 } from "../validators/auth.validators";
 import { validationHelper } from "../helpers/validator.helpers";
+
+dotenvx.config();
 
 export async function registerUser(request: Request, response: Response) {
   /*
@@ -92,9 +96,10 @@ export async function registerUser(request: Request, response: Response) {
 export async function loginUser(request: Request, response: Response) {
   /*
    * login existing users into the system
-   * use expess-session
    * login with either username/email + password
+   *
    * include jwt token for use
+   * use expess-session
    */
   const { usernameOrEmail, password } = request.body;
 
@@ -125,6 +130,19 @@ export async function loginUser(request: Request, response: Response) {
 
         // if passwords match
         if (passwordMatch) {
+          // define the payload
+          const payload: IPayload = {
+            id: user[0].id,
+            username: user[0].username,
+            email: user[0].email,
+            role: user[0].role,
+          };
+
+          // assign the jsonweb token
+          const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
+            expiresIn: "7 days",
+          });
+
           // log occurrence
           logger.log({
             level: "info",
@@ -142,13 +160,7 @@ export async function loginUser(request: Request, response: Response) {
             code: 200,
             status: "success",
             message: `Congratulations ${user[0].username}! You have successfully logged in.`,
-            data: {
-              user: {
-                username: user[0].username,
-                email: user[0].email,
-                role: user[0].role,
-              },
-            },
+            data: { token },
             metadata: null,
           });
         }
