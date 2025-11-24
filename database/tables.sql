@@ -11,6 +11,7 @@ CREATE TABLE users(
     role ENUM('admin','teacher','student') NOT NULL,
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
+    forgot_password BOOLEAN DEFAULT false,
     -- no true boolean value in mysql, all resolve to TINYINT(1)
     -- zero -> false/FALSE/False
     -- non-zero -> true/TRUE/True
