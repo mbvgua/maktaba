@@ -97,9 +97,8 @@ export async function loginUser(request: Request, response: Response) {
   /*
    * login existing users into the system
    * login with either username/email + password
-   *
    * include jwt token for use
-   * use expess-session
+   * TODO: use express-session
    */
   const { usernameOrEmail, password } = request.body;
 
@@ -230,8 +229,80 @@ export async function loginUser(request: Request, response: Response) {
   }
 }
 
-export function forgotPassword(request: Request, response: Response) {
+export async function forgotPassword(request: Request, response: Response) {
   /*
    * help user reset forgotten password
    */
+  const { usernameOrEmail } = request.body;
+  try {
+    // get user from db
+    const connection = await pool.getConnection();
+    const rows: any = await connection.query(
+      "SELECT * FROM users WHERE username=? OR email=? AND is_deleted=false;",
+      [usernameOrEmail, usernameOrEmail],
+    );
+    const user = rows[0] as IUser[];
+
+    if (user.length > 0) {
+      // change the forgot_password column
+      const userChangePass = await connection.query(
+        `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted=false;`,
+      );
+      connection.release();
+
+      // log occurrence
+      logger.log({
+        level: "info",
+        message: `User of id:${user[0].id} has requested to change their email succesfully!`,
+        data: {
+          user: usernameOrEmail,
+        },
+      });
+
+      // return response
+      return response.status(200).json({
+        code: 200,
+        status: "success",
+        message: `Congratulation ${user[0].username}! You have successfully requested to change you password. You will receive an email shortly on ${user[0].email} to change your account.`,
+        data: {
+          username: user[0].username,
+          email: user[0].email,
+          role: user[0].role,
+        },
+      });
+    }
+    // user not found
+    logger.log({
+      level: "error",
+      message: `User of username/email:${usernameOrEmail} does not exist!`,
+      data: {
+        user: usernameOrEmail,
+      },
+    });
+
+    return response.status(404).json({
+      code: 404,
+      status: "error",
+      message: `User of username/email:${usernameOrEmail} does not exists. Try again?`,
+      data: {
+        user: usernameOrEmail,
+      },
+      metadata: null,
+    });
+  } catch (error) {
+    logger.log({
+      level: "errror",
+      message: `Internal server error occurred while ${usernameOrEmail} was changing their password.`,
+      data: { error },
+    });
+
+    // return response error
+    return response.status(500).json({
+      code: 500,
+      status: "error",
+      message: "Internal server error occurred",
+      data: { error },
+      metadata: null,
+    });
+  }
 }

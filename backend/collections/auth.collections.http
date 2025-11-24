@@ -18,3 +18,12 @@ Content-Type: application/json
     "usernameOrEmail":"marcus@gmail.com",
     "password":"@Lance25"
 }
+
+###
+# forgot password
+POST http://localhost:4000/v1/auth/forgot-password
+Content-Type: application/json
+
+{
+    "usernameOrEmail": "marcus@gmail.com"
+}
