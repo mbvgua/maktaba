@@ -10,7 +10,7 @@ export const logger = winston.createLogger({
    */
   level: "info",
   format: format.combine(format.timestamp(), format.json()),
-  defaultMeta: { app: "backend" },
+  defaultMeta: { app: "backgroundServices" },
   transports: [
     // write log level -> error, fatal
     new winston.transports.File({
