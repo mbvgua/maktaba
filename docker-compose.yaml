@@ -1,0 +1,43 @@
+services:
+
+  # frontend container in angular
+  frontend:
+    container_name: maktaba_frontend
+    build:
+      context: frontend
+    restart: unless-stopped
+    ports:
+      - 4200:4200
+    volumes:
+      - ./frontend/:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/
+    # depends_on:
+    #   - backend
+
+  # backend:
+  #   container_name: maktaba_backend
+  #   build:
+  #     context: backend
+  #   restart: unless-stopped
+  #   ports: 
+  #   - 4000:4000
+  #   volumes:
+  #   - ./backend/:/usr/src/app
+  #   - node_modules:/usr/src/app/node_modules/
+  #   depends_on:
+  #   - database
+
+  database:
+    container_name: maktaba_database
+    image: mbvgua/maktaba_database
+    ports:
+      - 3305:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - database:/var/lib/mysql/
+
+volumes:
+  node_modules:
+  database:

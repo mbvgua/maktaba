@@ -1,0 +1,100 @@
+-- create and use the database
+CREATE DATABASE maktaba;
+\c maktaba
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- set a schema. good for granular controll
+-- CREATE SCHEMA v1
+
+CREATE TYPE user_role_enum AS ENUM('admin','teacher','student');
+
+CREATE TABLE users (
+    -- postgres has default uuid type?!
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  username VARCHAR(250) UNIQUE,
+  email VARCHAR(250) UNIQUE,
+  hashed_password VARCHAR(250) NOT NULL,
+  role user_role_enum NOT NULL,
+  areas_of_interest VARCHAR[] NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  is_deleted BOOLEAN DEFAULT false
+);
+
+-- NOTE: a word on indexes used for ceating faster queries
+-- PostgreSQL automatically creates a unique index when
+-- a unique constraint or primary key is defined for a table.
+-- hence no need for these after defining UNIQUE above
+
+-- CREATE INDEX index_users_username ON users(username);
+-- CREATE INDEX index_users_email ON users(email);
+
+CREATE TYPE course_access_type_enum AS ENUM('free','premium');
+
+CREATE TABLE courses (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  title VARCHAR(250) UNIQUE,
+  description TEXT NOT NULL,
+  category VARCHAR(250) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  access_type course_access_type_enum NOT NULL,
+  created_by VARCHAR(250) NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  is_deleted BOOLEAN DEFAULT false,
+  FOREIGN KEY (created_by) REFERENCES users (id)
+);
+
+CREATE TABLE course_overview (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  course_id UUID,
+  taught_by VARCHAR(250) NOT NULL,
+  requirements JSON,
+  content JSON,
+  FOREIGN KEY (course_id) REFERENCES courses (id),
+  FOREIGN KEY (taught_by) REFERENCES users (id)
+);
+
+CREATE TYPE ratings_stars_enum AS ENUM('1','2','3','4','5');
+
+CREATE TABLE ratings (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    -- rating_about will be like:
+    -- 'course':'data science for good'
+    -- 'instructor':'john doe'
+  rating_about JSON NOT NULL,
+  stars ratings_stars_enum NOT NULL,
+  description TEXT NOT NULL,
+  is_deleted BOOLEAN DEFAULT false
+);
+
+CREATE TYPE subs_payment_status_enum AS ENUM('complete','expired');
+
+CREATE TABLE subscriptions (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  user_id UUID,
+  course_id UUID,
+  payment_status subs_payment_status_enum NOT NULL,
+  start_date TIMESTAMP DEFAULT NOW(),
+  duration INTERVAL NOT NULL,
+  end_date TIMESTAMP DEFAULT NOW() + duration,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (course_id) REFERENCES courses (id)
+);
+
+CREATE TYPE payments_method_enum AS ENUM('mpesa','paystack','bank');
+CREATE TYPE payments_status_enum AS ENUM('in-progress','failed','success');
+
+CREATE TABLE payments (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  user_id UUID,
+  course_id UUID,
+  amount DECIMAL(10, 2) NOT NULL,
+  payment_method payments_method_enum NOT NULL,
+  status payments_status_enum NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  is_deleted BOOLEAN DEFAULT false,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (course_id) REFERENCES courses (id)
+);
