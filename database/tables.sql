@@ -11,12 +11,15 @@ CREATE TABLE users(
     role ENUM('admin','teacher','student') NOT NULL,
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
-    forgot_password BOOLEAN DEFAULT false,
     -- no true boolean value in mysql, all resolve to TINYINT(1)
     -- zero -> false/FALSE/False
     -- non-zero -> true/TRUE/True
-    is_verified BOOLEAN DEFAULT false,
-    is_deleted BOOLEAN DEFAULT false
+    forgot_password BOOLEAN DEFAULT false, -- send change pass email if true
+    is_verified BOOLEAN DEFAULT false, -- send welcome email/ verify email if false
+    -- 0 -> acc not deleted
+    -- 1 -> acc deleted no goodbye email sent
+    -- 2 -> acc deleted and goodbye email sent
+    is_deleted BOOLEAN DEFAULT false -- 
 );
 
 CREATE TABLE courses(
