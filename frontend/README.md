@@ -4,7 +4,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-To start a local development server, run:
+First ensure you have a node package manager installed(*I use `pnpm`), then:
+
+```bash
+pnpm install
+```
+
+Start the local development server with:
 
 ```bash
 ng serve

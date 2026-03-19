@@ -1,12 +1,7 @@
 # Contributing to Hermes
 
-Hi! 👋
-Thanks for your interest in contributing. Even though this project is currently maintained by a single developer (me), I welcome help, ideas, and improvements.
-
-## How to Contribute
-
 ### 1. Reporting Issues
-- Use the [Issues tab](../../issues) to report bugs or suggest features.
+- Use the **Issues tracker** to report bugs or suggest features.
 - Please be as specific as possible, including:
   - Steps to reproduce (if it’s a bug)
   - Screenshots or examples
@@ -36,9 +31,5 @@ Thanks for your interest in contributing. Even though this project is currently 
 - Follow existing code patterns and formatting.
 - Keep things simple and readable.
 - Use descriptive names for variables, functions, and files.
-
-## Communication
-- Please keep discussions respectful and constructive.
-- I may not merge PRs immediately, but I will review them as soon as I can.
 
 Thanks for helping make this project better!

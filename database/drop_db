@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "drop maktaba database? [y/n] "
+read choice
+
+if [[ "$choice" == "y" ]]; then
+    echo " "
+    echo "deleting db"
+    mysql -u root -p < drop_db.sql
+elif [[ "$choice" == "n" ]]; then
+    echo " "
+    echo "aborting deletion..."
+else
+    echo "invalid input. try again?"
+fi

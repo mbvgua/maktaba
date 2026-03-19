@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo "building the maktaba database"
+
+# make the complete db file
+# removes it if it exists,else creates it
+rm complete_db.sql
+touch complete_db.sql
+
+# loop through base files, appending to the complete one
+for file in tables.sql views.sql triggers.sql stored_procedures.sql; do
+    cat $file >> complete_db.sql
+done
+
+# build the entire db
+mysql -u root -p < complete_db.sql
