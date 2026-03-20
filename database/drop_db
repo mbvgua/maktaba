@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-echo "drop maktaba database? [y/n] "
+database="maktaba"
+echo "drop $database database? [y/n] "
 read choice
 
 if [[ "$choice" == "y" ]]; then
     echo " "
-    echo "deleting db"
-    mysql -u root -p < drop_db.sql
+    echo "deleting $database database.."
+    mysql -u root -p < drop.sql > output.tab
 elif [[ "$choice" == "n" ]]; then
     echo " "
     echo "aborting deletion..."

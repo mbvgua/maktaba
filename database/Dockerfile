@@ -9,6 +9,4 @@ EXPOSE 3307
 # seed the db schema
 # NOTE: eveyrtime you rebuild the docker container again 
 # rebuild the image to ensure new schema in containers
-COPY tables.sql /docker-entrypoint-initdb.d/
-
-
+COPY db.sql /docker-entrypoint-initdb.d/

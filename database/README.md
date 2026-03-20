@@ -13,7 +13,7 @@ To setup the db easily simple use the [setup](./setup) script, that will only pr
 ./build_db
 ```
 
-if need be to quickly drop the database, simple run the script to drop it with:
+To drop the database, simple run the script to drop it with:
 
 ```bash
 ./drop_db
