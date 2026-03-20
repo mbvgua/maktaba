@@ -1,6 +1,5 @@
 export enum UserRole {
   Admin = "admin",
-  Teacher = "teacher",
   Student = "student",
 }
 
@@ -10,9 +9,11 @@ export interface IUser {
   email: string;
   hashed_password: string;
   role: UserRole;
+  forgot_password: boolean;
+  is_verified: boolean;
+  is_welcomed: boolean;
+  is_leaving: boolean;
+  is_deleted: boolean;
   created_at: string;
   updated_at: string;
-  forgot_password: string;
-  is_verified: boolean;
-  is_deleted: boolean;
 }

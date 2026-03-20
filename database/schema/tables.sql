@@ -9,7 +9,7 @@ USE maktaba;
 -- * non-zero == true/True/TRUE
 -- * went with DATETIME(1000-9999) and not TIMESTAMP(1970-2038) 
 CREATE TABLE users(
-    id VARCHAR(250) PRIMARY KEY,
+    id VARCHAR(250) PRIMARY KEY DEFAULT (UUID()),
     username VARCHAR(250) NOT NULL UNIQUE,
     email VARCHAR(250) NOT NULL UNIQUE,
     hashed_password VARCHAR(250) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE users(
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME NOT NULL DEFAULT NOW(),
     forgot_password BOOLEAN DEFAULT false, -- if true send change password email
-    is_welcome BOOlEAN DEFAULT false, -- if false send welcome email
+    is_welcomed BOOlEAN DEFAULT false, -- if false send welcome email
     is_verified BOOLEAN DEFAULT false, -- if false send verify email
     is_leaving BOOLEAN DEFAULT false, -- if true send goodbye email
     is_deleted BOOLEAN DEFAULT false -- if is_leaving is true, make this true
@@ -27,7 +27,7 @@ CREATE TABLE users(
 -- NOTE:
 -- * all free courses should have a price of 0.0
 CREATE TABLE courses(
-    id VARCHAR(250) PRIMARY KEY,
+    id VARCHAR(250) PRIMARY KEY DEFAULT (UUID()),
     title VARCHAR(250) UNIQUE,
     description MEDIUMTEXT NOT NULL,
     category ENUM("business","computer science","medicine","mathematics","languages","engineering") NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE courses(
 -- NOTE:
 -- * not implemented now,later alongside the ratings table
 CREATE TABLE course_overview(
-    id VARCHAR(250) PRIMARY KEY,
+    id VARCHAR(250) PRIMARY KEY DEFAULT (UUID()),
     course_id VARCHAR(250),
     taught_by VARCHAR(250) NOT NULL, -- implement later for now ink them all to admin
     requirements JSON NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE course_overview(
 -- * the end_date time is automatically generated based on (start_date+duration)
 -- * unsure if it works as is, test thoroughly
 CREATE TABLE subscriptions(
-    id VARCHAR(250) PRIMARY KEY,
+    id VARCHAR(250) PRIMARY KEY DEFAULT (UUID()),
     user_id VARCHAR(250),
     course_id VARCHAR(250),
     payment_status ENUM('pending','paid','expired') NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE subscriptions(
 
 -- payments table
 CREATE TABLE payments(
-    id VARCHAR(250) PRIMARY KEY,
+    id VARCHAR(250) PRIMARY KEY DEFAULT (UUID()),
     user_id VARCHAR(250),
     course_id VARCHAR(250),
     amount DECIMAL(10, 2) NOT NULL,
