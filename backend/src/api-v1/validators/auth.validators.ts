@@ -23,14 +23,14 @@ export const registerUserSchema = joi.object({
     .email({
       minDomainSegments: 2,
       tlds: {
-        allow: ["com", "net"],
+        allow: ["com", "net", "yahoo"],
       },
     })
     .messages({
       "string.base": "email must be a string",
       "string.required": "email is required",
       "string.email":
-        "email can only have two domains, e.g 'example.com' whose suffix can only be either '.com' or '.net'",
+        "email can only have two domains, e.g 'example.com' whose suffix can only be either '.com', '.net' or '.yahoo'",
     }),
   password: joi
     .string()
@@ -43,10 +43,8 @@ export const registerUserSchema = joi.object({
     .messages({
       "string.base": "password must be a string",
       "string.required": "password is required",
-      "string.min":
-        "password must have a minimum number of {#limit} characters",
       "string.pattern.base":
-        "Password must contain atleast one lowercase letter,one uppercase letter, one digit and one special character",
+        "Password must contain atleast one lowercase letter,one uppercase letter, one digit and one special character. It must also be no less then 6 digits, but not exceeding 10",
     }),
 });
 

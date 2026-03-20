@@ -17,6 +17,7 @@ dotenvx.config();
 export async function registerUser(request: Request, response: Response) {
   /*
    * register new user into the system
+   * requires username,email,password from user. rest are filled gradually
    */
   const role = UserRole.Student;
   const { username, email, password } = request.body;
@@ -250,6 +251,19 @@ export async function forgotPassword(request: Request, response: Response) {
       );
       connection.release();
 
+      // define the payload
+      const payload: IPayload = {
+        id: user[0].id,
+        username: user[0].username,
+        email: user[0].email,
+        role: user[0].role,
+      };
+
+      // assign the jsonweb token
+      const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
+        expiresIn: "7 days",
+      });
+
       // log occurrence
       logger.log({
         level: "info",
@@ -264,11 +278,7 @@ export async function forgotPassword(request: Request, response: Response) {
         code: 200,
         status: "success",
         message: `Congratulation ${user[0].username}! You have successfully requested to change you password. You will receive an email shortly on ${user[0].email} to change your account.`,
-        data: {
-          username: user[0].username,
-          email: user[0].email,
-          role: user[0].role,
-        },
+        data: { token },
       });
     }
     // user not found
