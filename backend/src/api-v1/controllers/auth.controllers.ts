@@ -13,6 +13,7 @@ import {
 import { validationHelper } from "../helpers/validator.helpers";
 
 dotenvx.config();
+const JWT_EXPIRATION = "7 days";
 
 export async function registerUser(request: Request, response: Response) {
   /*
@@ -111,10 +112,11 @@ export async function loginUser(request: Request, response: Response) {
     );
 
     if (isValidRequest) {
+      //NOTE: is_deletedis NOT a boolean val but an enum hence ""
       // get user with either username or email
       const connection = await pool.getConnection();
       const rows: any = await connection.query(
-        `SELECT * FROM users WHERE username=? OR email=? AND is_deleted=false;`,
+        `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
         [usernameOrEmail, usernameOrEmail],
       );
       const user = rows[0] as IUser[];
@@ -140,7 +142,7 @@ export async function loginUser(request: Request, response: Response) {
 
           // assign the jsonweb token
           const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
-            expiresIn: "7 days",
+            expiresIn: JWT_EXPIRATION,
           });
 
           // log occurrence
@@ -239,7 +241,7 @@ export async function forgotPassword(request: Request, response: Response) {
     // get user from db
     const connection = await pool.getConnection();
     const rows: any = await connection.query(
-      "SELECT * FROM users WHERE username=? OR email=? AND is_deleted=false;",
+      `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
       [usernameOrEmail, usernameOrEmail],
     );
     const user = rows[0] as IUser[];
@@ -247,7 +249,7 @@ export async function forgotPassword(request: Request, response: Response) {
     if (user.length > 0) {
       // change the forgot_password column
       const userChangePass = await connection.query(
-        `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted=false;`,
+        `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted="false";`,
       );
       connection.release();
 
@@ -261,7 +263,7 @@ export async function forgotPassword(request: Request, response: Response) {
 
       // assign the jsonweb token
       const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
-        expiresIn: "7 days",
+        expiresIn: JWT_EXPIRATION,
       });
 
       // log occurrence

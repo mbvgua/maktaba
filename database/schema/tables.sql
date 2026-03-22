@@ -18,9 +18,8 @@ CREATE TABLE users(
     updated_at DATETIME NOT NULL DEFAULT NOW(),
     forgot_password BOOLEAN DEFAULT false, -- if true send change password email
     is_welcomed BOOlEAN DEFAULT false, -- if false send welcome email
-    is_verified BOOLEAN DEFAULT false, -- if false send verify email
-    is_leaving BOOLEAN DEFAULT false, -- if true send goodbye email
-    is_deleted BOOLEAN DEFAULT false -- if is_leaving is true, make this true
+    is_verified ENUM('false','pending','true') DEFAULT "false", -- if false send verify email
+    is_deleted ENUM('false','pending','true') DEFAULT "false" -- if pending send goodbye email. then make true
 );
 
 -- courses table

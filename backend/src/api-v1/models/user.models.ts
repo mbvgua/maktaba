@@ -3,6 +3,12 @@ export enum UserRole {
   Student = "student",
 }
 
+export enum UserProcessStatus {
+  False = "false",
+  Pending = "pending",
+  True = "true",
+}
+
 export interface IUser {
   id: string;
   username: string;
@@ -10,9 +16,9 @@ export interface IUser {
   hashed_password: string;
   role: UserRole;
   forgot_password: boolean;
-  is_verified: boolean;
+  is_verified: UserProcessStatus;
   is_welcomed: boolean;
-  is_leaving: boolean;
+  is_leaving: UserProcessStatus;
   is_deleted: boolean;
   created_at: string;
   updated_at: string;

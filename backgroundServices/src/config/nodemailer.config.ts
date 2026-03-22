@@ -17,4 +17,19 @@ const nodemailerConfig: INodemailerConfig = {
 };
 
 // create transporter
-export const transporter = nodemailer.createTransport(nodemailerConfig);
+const transporter = nodemailer.createTransport(nodemailerConfig);
+
+// verify Transporter
+async function verifyEmailConnection() {
+  try {
+    await transporter.verify();
+    console.log("[server] email server is ready...");
+  } catch (error) {
+    console.log("[server] email server error", error);
+    // stop server with an error code
+    process.exit(1);
+  }
+}
+
+verifyEmailConnection();
+export default transporter;

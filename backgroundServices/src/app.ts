@@ -14,7 +14,7 @@ cron.schedule("*/30 * * * * *", () => {
   console.log("Cron job started at: ", new Date());
   try {
     sendWelcomeEmail();
-    // sendVerificationEmail();
+    sendVerificationEmail();
   } catch (error) {
     console.log("cron job failed: ", error);
   }
