@@ -1,12 +1,9 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block title %} verify email {% endblock %}
+
+{% block body %}
+
     <h2>Hi {{name}},</h2>
     <p>
       Thanks for creating a Maktaba account! Before we continue, we just need to
@@ -15,7 +12,9 @@
 
     <p>Please click the link below:</p>
 
-    <centre>{{verifyLink}}</centre>
+    <centre>
+      <button><a href="{{verifyLink}}"> Verify Email </a></button>
+    </centre>
 
     <p>
       If you didn’t create a Maktaba account, feel free to ignore this message.
@@ -25,5 +24,5 @@
       Cheers,<br />
       Maktaba Team.
     </p>
-  </body>
-</html>
+
+{% endblock %}

@@ -8,30 +8,23 @@ import { IUser } from "../models/user.models";
 import { sendMail } from "../helpers/send-email.helper";
 import { INodemailerMessage } from "../models/nodemailer.models";
 import { logger } from "../../config/winston.config";
+import { nunjucksEnv } from "../../config/nunjucks.config";
 
 dotenvx.config({ path: path.resolve(__dirname, "../../../.env") });
-
-// get path to html template and compile it
-const templatePath = path.resolve(
-  __dirname,
-  "../../../templates/welcomeEmail.html",
-);
-const source = fs.readFileSync(templatePath, "utf8");
-const compiledTemplate = nunjucks.compile(source);
 
 export async function sendWelcomeEmail() {
   try {
     const connection = await pool.getConnection();
+    //NOTE: is_welcomed if false since its a boolean. hence default to 0
+    //is_deleted is an ENUM() hence "false"
     const rows: any = await connection.query(
-      "SELECT * FROM users WHERE is_welcomed=0 AND is_deleted=0;",
+      `SELECT * FROM users WHERE is_welcomed=false AND is_deleted="false";`,
     );
     const welcomeEmailPending = rows[0] as IUser[];
-    console.log(welcomeEmailPending);
-    connection.release();
 
     if (welcomeEmailPending.length > 0) {
       welcomeEmailPending.forEach(async (user) => {
-        const data = compiledTemplate.render({
+        const data = nunjucksEnv.render("welcome-email.html",{
           name: user.username,
           email: user.email,
         });
@@ -49,9 +42,10 @@ export async function sendWelcomeEmail() {
 
         // update db to prevent infinite loop
         await connection.query(
-          "UPDATE users SET is_welcomed=1 WHERE id=? AND is_deleted=0;",
+          "UPDATE users SET is_welcomed=true WHERE id=?;",
           [user.id],
         );
+        connection.release();
 
         // log occurrence
         logger.log({
