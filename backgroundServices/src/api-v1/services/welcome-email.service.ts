@@ -12,8 +12,10 @@ dotenvx.config({ path: path.resolve(__dirname, "../../../.env") });
 const WELCOME_TEMPLATE = "welcome-email.html";
 
 export async function sendWelcomeEmail() {
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
-    const connection = await pool.getConnection();
     //NOTE: is_welcomed if false since its a boolean. hence default to 0
     //is_deleted is an ENUM() hence "false"
     const rows: any = await connection.query(
@@ -44,7 +46,6 @@ export async function sendWelcomeEmail() {
           "UPDATE users SET is_welcomed=true WHERE id=?;",
           [user.id],
         );
-        connection.release();
 
         // log occurrence in log files only, cannot return things
         // as that terminates execution. also loggin to console
@@ -73,5 +74,8 @@ export async function sendWelcomeEmail() {
       message: "Internal server error occurred while sending a welcome email",
       data: { error },
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
 }

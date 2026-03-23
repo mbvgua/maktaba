@@ -17,8 +17,11 @@ export async function forgotPasswordEmail() {
    * This will be used in the login screen interface
    * the 'forgot password' link
    */
+
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
-    const connection = await pool.getConnection();
     // forgot_password is a BOOlEAN hence true
     // is_deleted is an ENUM hence "false"
     const rows: any = await connection.query(
@@ -79,5 +82,8 @@ export async function forgotPasswordEmail() {
         "Internal server error occurred while trying to send password change email.",
       data: { error },
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
 }

@@ -9,14 +9,16 @@ import { logger } from "../../config/winston.config";
 import { nunjucksEnv } from "../../config/nunjucks.config";
 
 dotenvx.config();
-const VERIFICATION_TEMPLATE = "verify-email.html"
+const VERIFICATION_TEMPLATE = "verify-email.html";
 const VERIFICATION_LINK = "http://localhost:4000/v1/auth/verify-email";
 
 export async function sendVerificationEmail() {
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
     // get unverified users from db
     // NOTE: is_verified and is_deleted are both ENUM() type hence need to be in ""
-    const connection = await pool.getConnection();
     const rows: any = await connection.query(
       `SELECT * FROM users where is_verified="false" AND is_deleted="false";`,
     );
@@ -47,7 +49,6 @@ export async function sendVerificationEmail() {
           `UPDATE users SET is_verified="pending" WHERE id=? AND is_deleted="false";`,
           [user.id],
         );
-        connection.release();
 
         // log occurrence
         logger.log({
@@ -74,5 +75,8 @@ export async function sendVerificationEmail() {
         "Internal server error occurred while trying to send verification email.",
       data: { error },
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
 }

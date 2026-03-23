@@ -32,6 +32,9 @@ export async function registerUser(request: Request, response: Response) {
     registerUserSchema,
   );
 
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
     /*
      * NOTE: find out why this logs things onto the console alot?
@@ -42,12 +45,10 @@ export async function registerUser(request: Request, response: Response) {
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
       // save data to db
-      const connection = await pool.getConnection();
       await connection.execute(
         `INSERT INTO users(username,email,hashed_password,role) VALUES (?,?,?,?);`,
         [username, email, hashedPassword, role],
       );
-      connection.release();
 
       //log the occurrence
       logger.log({
@@ -93,6 +94,9 @@ export async function registerUser(request: Request, response: Response) {
       data: { error },
       metadata: null,
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
 }
 
@@ -105,6 +109,9 @@ export async function loginUser(request: Request, response: Response) {
    */
   const { usernameOrEmail, password } = request.body;
 
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
     const isValidRequest = await validationHelper(
       request,
@@ -115,13 +122,11 @@ export async function loginUser(request: Request, response: Response) {
     if (isValidRequest) {
       //NOTE: is_deletedis NOT a boolean val but an enum hence ""
       // get user with either username or email
-      const connection = await pool.getConnection();
       const rows: any = await connection.query(
         `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
         [usernameOrEmail, usernameOrEmail],
       );
       const user = rows[0] as IUser[];
-      connection.release();
 
       // if user exists
       if (user.length > 0) {
@@ -230,6 +235,9 @@ export async function loginUser(request: Request, response: Response) {
       data: { error },
       metadata: null,
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
 }
 
@@ -253,9 +261,12 @@ export async function changePassword(
     response,
     changePasswordSchema,
   );
+
+  // create connection pool
+  const connection = await pool.getConnection();
+
   try {
     //get user based on their id
-    const connection = await pool.getConnection();
     const rows: any = await connection.query(
       `SELECT * FROM users WHERE id=? AND is_deleted="false";`,
       [user_id],
@@ -324,85 +335,8 @@ export async function changePassword(
       data: { error },
       metadata: null,
     });
+  } finally {
+    //release connection pool
+    connection.release();
   }
-  // try {
-  //   // get user from db
-  //   const connection = await pool.getConnection();
-  //   const rows: any = await connection.query(
-  //     `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
-  //     [usernameOrEmail, usernameOrEmail],
-  //   );
-  //   const user = rows[0] as IUser[];
-  //
-  //   if (user.length > 0) {
-  //     // change the forgot_password column
-  //     const userChangePass = await connection.query(
-  //       `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted="false";`,
-  //     );
-  //     connection.release();
-  //
-  //     // define the payload
-  //     const payload: IPayload = {
-  //       id: user[0].id,
-  //       username: user[0].username,
-  //       email: user[0].email,
-  //       role: user[0].role,
-  //     };
-  //
-  //     // assign the jsonweb token
-  //     const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
-  //       expiresIn: JWT_EXPIRATION,
-  //     });
-  //
-  //     // log occurrence
-  //     logger.log({
-  //       level: "info",
-  //       message: `User of id:${user[0].id} has requested to change their email succesfully!`,
-  //       data: {
-  //         user: usernameOrEmail,
-  //       },
-  //     });
-  //
-  //     // return response
-  //     return response.status(200).json({
-  //       code: 200,
-  //       status: "success",
-  //       message: `Congratulation ${user[0].username}! You have successfully requested to change you password. You will receive an email shortly on ${user[0].email} to change your account.`,
-  //       data: { token },
-  //     });
-  //   }
-  //   // user not found
-  //   logger.log({
-  //     level: "error",
-  //     message: `User of username/email:${usernameOrEmail} does not exist!`,
-  //     data: {
-  //       user: usernameOrEmail,
-  //     },
-  //   });
-  //
-  //   return response.status(404).json({
-  //     code: 404,
-  //     status: "error",
-  //     message: `User of username/email:${usernameOrEmail} does not exists. Try again?`,
-  //     data: {
-  //       user: usernameOrEmail,
-  //     },
-  //     metadata: null,
-  //   });
-  // } catch (error) {
-  //   logger.log({
-  //     level: "errror",
-  //     message: `Internal server error occurred while ${usernameOrEmail} was changing their password.`,
-  //     data: { error },
-  //   });
-  //
-  //   // return response error
-  //   return response.status(500).json({
-  //     code: 500,
-  //     status: "error",
-  //     message: "Internal server error occurred",
-  //     data: { error },
-  //     metadata: null,
-  //   });
-  // }
 }
