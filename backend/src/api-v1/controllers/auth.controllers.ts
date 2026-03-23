@@ -252,7 +252,6 @@ export async function changePassword(
    * in login screen to access this endpoint
    */
   const user_id = request.params.id;
-  console.log(user_id);
   const { newPassword } = request.body;
 
   // ensure new_password ihas no validation erro
@@ -337,6 +336,88 @@ export async function changePassword(
     });
   } finally {
     //release connection pool
+    connection.release();
+  }
+}
+
+export async function deleteUser(
+  request: Request<{ id: string }>,
+  response: Response,
+) {
+  /*
+   * delete user account
+   */
+
+  const user_id = request.params.id;
+  const connection = await pool.getConnection();
+
+  try {
+    // get user from db based on id
+    const rows: any = await connection.query(
+      `SELECT * FROM users WHERE id=? AND is_deleted="false"`,
+      [user_id],
+    );
+    const user = rows[0] as IUser[];
+
+    // if user exists, delete that
+    if (user.length > 0) {
+      await connection.execute(
+        `UPDATE users SET is_deleted="pending" WHERE id=?;`,
+        [user[0].id],
+      );
+
+      logger.log({
+        level: "info",
+        message: `User ${user[0].username} of id: ${user[0].id} has deleted there account`,
+        data: {
+          id: user[0].id,
+          username: user[0].username,
+          email: user[0].email,
+        },
+      });
+
+      return response.status(201).json({
+        status: "success",
+        code: 201,
+        message: `Oh no! ${user[0].username}, you have deleted you account`,
+        data: {
+          username: user[0].username,
+          email: user[0].email,
+        },
+        metadata: null,
+      });
+    }
+    // else return appropriate erroe messages
+    logger.log({
+      level: "error",
+      message: `${user_id} tried deleteing their account, but it does not exist`,
+      data: { user_id: user_id },
+    });
+
+    return response.status(404).json({
+      code: 404,
+      status: "error",
+      message: "Oops! Looks like their is no user account linked to that id. Try again?",
+      data: {
+        user_id: user_id,
+      },
+      metadata: null,
+    });
+  } catch (error) {
+    logger.log({
+      level: "error",
+      message: "Internal server error occurred while deleting user account",
+      data: { error },
+    });
+
+    return response.status(500).json({
+      code: 500,
+      status: "error",
+      message: "Internal server error occurred",
+      data: { error },
+      metadata: null,
+    });
+  } finally {
     connection.release();
   }
 }
