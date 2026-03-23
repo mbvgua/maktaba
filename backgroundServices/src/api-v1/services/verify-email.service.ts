@@ -12,7 +12,7 @@ dotenvx.config();
 const VERIFICATION_TEMPLATE = "verify-email.html"
 const VERIFICATION_LINK = "http://localhost:4000/v1/auth/verify-email";
 
-export async function sendVerifyEmail() {
+export async function sendVerificationEmail() {
   try {
     // get unverified users from db
     // NOTE: is_verified and is_deleted are both ENUM() type hence need to be in ""
@@ -25,7 +25,7 @@ export async function sendVerifyEmail() {
     //loop through users sending verification link
     if (verificationEmailPending.length > 0) {
       verificationEmailPending.forEach(async (user) => {
-        // define mail content
+        // compile nunjucks variables&templates
         const data = nunjucksEnv.render(VERIFICATION_TEMPLATE, {
           name: user.username,
           verifyLink: VERIFICATION_LINK,
@@ -44,7 +44,7 @@ export async function sendVerifyEmail() {
 
         // update db to pending to prevent infinite loop
         await connection.query(
-          `UPDATE users SET is_verified="pending" WHERE id=?;`,
+          `UPDATE users SET is_verified="pending" WHERE id=? AND is_deleted="false";`,
           [user.id],
         );
         connection.release();

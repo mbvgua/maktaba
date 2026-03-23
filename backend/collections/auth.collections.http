@@ -15,15 +15,15 @@ POST http://localhost:4000/v1/auth/login
 Content-Type: application/json
 
 {
-    "usernameOrEmail":"marcus@gmail.com",
+    "usernameOrEmail":"lancelot@gmail.com",
     "password":"@Lance25"
 }
 
 ###
 # forgot password
-POST http://localhost:4000/v1/auth/forgot-password
+POST http://localhost:4000/v1/auth/change-password/0b6ecb34-25d9-11f1-878e-aa9483c2e19b
 Content-Type: application/json
 
 {
-    "usernameOrEmail": "marcus@gmail.com"
+    "newPassword": "@Lance25"
 }

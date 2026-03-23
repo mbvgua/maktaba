@@ -1,7 +1,10 @@
 import express from "express";
 import cron from "node-cron";
-import { sendWelcomeEmail } from "./api-v1/services/welcome-user.service";
-import { sendVerifyEmail as sendVerificationEmail } from "./api-v1/services/verify-email.service";
+
+import { sendWelcomeEmail } from "./api-v1/services/welcome-email.service";
+import { sendVerificationEmail } from "./api-v1/services/verify-email.service";
+import { forgotPasswordEmail } from "./api-v1/services/forgot-password-email.service";
+
 
 const app = express();
 
@@ -15,6 +18,7 @@ cron.schedule("*/30 * * * * *", () => {
   try {
     sendWelcomeEmail();
     sendVerificationEmail();
+    forgotPasswordEmail();
   } catch (error) {
     console.log("cron job failed: ", error);
   }

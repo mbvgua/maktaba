@@ -7,12 +7,14 @@ import { pool } from "../../config/mysql.config";
 import { IPayload, IUser, UserRole } from "../models/user.models";
 import { logger } from "../../config/winston.config";
 import {
+  changePasswordSchema,
   loginUserSchema,
   registerUserSchema,
 } from "../validators/auth.validators";
 import { validationHelper } from "../helpers/validator.helpers";
 
 dotenvx.config();
+const SALT_ROUNDS = 9;
 const JWT_EXPIRATION = "7 days";
 
 export async function registerUser(request: Request, response: Response) {
@@ -37,8 +39,7 @@ export async function registerUser(request: Request, response: Response) {
      */
     if (isValidRequest) {
       // hash password for security
-      const saltRounds = 9;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
       // save data to db
       const connection = await pool.getConnection();
@@ -232,83 +233,90 @@ export async function loginUser(request: Request, response: Response) {
   }
 }
 
-export async function forgotPassword(request: Request, response: Response) {
+export async function changePassword(
+  request: Request<{ id: string }>,
+  response: Response,
+) {
   /*
-   * help user reset forgotten password
+   * user reset passoword. accessed directly in logged in UI
+   * if not logged in, the user will click on the 'forgot password' link
+   * that initiates a background service that sends you a link to this endpoint in your email
+   * in login screen to access this endpoint
    */
-  const { usernameOrEmail } = request.body;
+  const user_id = request.params.id;
+  console.log(user_id);
+  const { newPassword } = request.body;
+
+  // ensure new_password ihas no validation erro
+  const isValidRequest = await validationHelper(
+    request,
+    response,
+    changePasswordSchema,
+  );
   try {
-    // get user from db
+    //get user based on their id
     const connection = await pool.getConnection();
     const rows: any = await connection.query(
-      `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
-      [usernameOrEmail, usernameOrEmail],
+      `SELECT * FROM users WHERE id=? AND is_deleted="false";`,
+      [user_id],
     );
     const user = rows[0] as IUser[];
 
+    //if present, hash password, then change to new one in db
     if (user.length > 0) {
-      // change the forgot_password column
-      const userChangePass = await connection.query(
-        `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted="false";`,
+      const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
+      await connection.execute(
+        `UPDATE users SET hashed_password=? WHERE id=? AND is_deleted="false";`,
+        [hashedPassword, user[0].id],
       );
-      connection.release();
 
-      // define the payload
-      const payload: IPayload = {
-        id: user[0].id,
-        username: user[0].username,
-        email: user[0].email,
-        role: user[0].role,
-      };
-
-      // assign the jsonweb token
-      const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
-        expiresIn: JWT_EXPIRATION,
-      });
-
-      // log occurrence
+      // log occurence & return response
       logger.log({
         level: "info",
-        message: `User of id:${user[0].id} has requested to change their email succesfully!`,
+        message: `User ${user[0].username} of id:${user[0].id} successfully changed their password`,
         data: {
-          user: usernameOrEmail,
+          user_id: user[0].id,
+          username: user[0].username,
+          email: user[0].email,
         },
       });
 
-      // return response
-      return response.status(200).json({
-        code: 200,
+      return response.status(201).json({
+        code: 201,
         status: "success",
-        message: `Congratulation ${user[0].username}! You have successfully requested to change you password. You will receive an email shortly on ${user[0].email} to change your account.`,
-        data: { token },
+        message: `Congratulations ${user[0].username}, you have successfully changed your password`,
+        data: {
+          user_id: user[0].id,
+          username: user[0].username,
+          email: user[0].email,
+        },
+        metadata: null,
       });
     }
-    // user not found
+    //if not found terminate execution with appropriate response
+    //log info to files and return appropriate error response
     logger.log({
       level: "error",
-      message: `User of username/email:${usernameOrEmail} does not exist!`,
-      data: {
-        user: usernameOrEmail,
-      },
+      message: `No user of id ${user_id} exists, but they tried changing their password`,
+      data: { user_id: user_id },
     });
 
     return response.status(404).json({
       code: 404,
       status: "error",
-      message: `User of username/email:${usernameOrEmail} does not exists. Try again?`,
-      data: {
-        user: usernameOrEmail,
-      },
+      message: `User of id:${user_id} was not found. Create an account first?`,
+      data: { user_id: user_id },
       metadata: null,
     });
   } catch (error) {
+    // log occurrence in logs
     logger.log({
-      level: "errror",
-      message: `Internal server error occurred while ${usernameOrEmail} was changing their password.`,
+      level: "error",
+      message: `Internal server error occurred while ${user_id} was updating their password`,
       data: { error },
     });
 
-    // return response error
+    // return error response
     return response.status(500).json({
       code: 500,
       status: "error",
@@ -317,4 +325,84 @@ export async function forgotPassword(request: Request, response: Response) {
       metadata: null,
     });
   }
+  // try {
+  //   // get user from db
+  //   const connection = await pool.getConnection();
+  //   const rows: any = await connection.query(
+  //     `SELECT * FROM users WHERE username=? OR email=? AND is_deleted="false";`,
+  //     [usernameOrEmail, usernameOrEmail],
+  //   );
+  //   const user = rows[0] as IUser[];
+  //
+  //   if (user.length > 0) {
+  //     // change the forgot_password column
+  //     const userChangePass = await connection.query(
+  //       `UPDATE users SET forgot_password=true WHERE email='${user[0].email}' AND is_deleted="false";`,
+  //     );
+  //     connection.release();
+  //
+  //     // define the payload
+  //     const payload: IPayload = {
+  //       id: user[0].id,
+  //       username: user[0].username,
+  //       email: user[0].email,
+  //       role: user[0].role,
+  //     };
+  //
+  //     // assign the jsonweb token
+  //     const token = jwt.sign(payload, process.env.SECRET_KEY as string, {
+  //       expiresIn: JWT_EXPIRATION,
+  //     });
+  //
+  //     // log occurrence
+  //     logger.log({
+  //       level: "info",
+  //       message: `User of id:${user[0].id} has requested to change their email succesfully!`,
+  //       data: {
+  //         user: usernameOrEmail,
+  //       },
+  //     });
+  //
+  //     // return response
+  //     return response.status(200).json({
+  //       code: 200,
+  //       status: "success",
+  //       message: `Congratulation ${user[0].username}! You have successfully requested to change you password. You will receive an email shortly on ${user[0].email} to change your account.`,
+  //       data: { token },
+  //     });
+  //   }
+  //   // user not found
+  //   logger.log({
+  //     level: "error",
+  //     message: `User of username/email:${usernameOrEmail} does not exist!`,
+  //     data: {
+  //       user: usernameOrEmail,
+  //     },
+  //   });
+  //
+  //   return response.status(404).json({
+  //     code: 404,
+  //     status: "error",
+  //     message: `User of username/email:${usernameOrEmail} does not exists. Try again?`,
+  //     data: {
+  //       user: usernameOrEmail,
+  //     },
+  //     metadata: null,
+  //   });
+  // } catch (error) {
+  //   logger.log({
+  //     level: "errror",
+  //     message: `Internal server error occurred while ${usernameOrEmail} was changing their password.`,
+  //     data: { error },
+  //   });
+  //
+  //   // return response error
+  //   return response.status(500).json({
+  //     code: 500,
+  //     status: "error",
+  //     message: "Internal server error occurred",
+  //     data: { error },
+  //     metadata: null,
+  //   });
+  // }
 }
