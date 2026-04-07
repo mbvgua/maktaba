@@ -15,7 +15,7 @@ CREATE TABLE users(
     hashed_password VARCHAR(250) NOT NULL,
     role ENUM('admin','student') NOT NULL,
     created_at DATETIME NOT NULL DEFAULT NOW(),
-    updated_at DATETIME NOT NULL DEFAULT NOW(),
+    updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     forgot_password BOOLEAN DEFAULT false, -- if true send change password email
     is_welcomed BOOlEAN DEFAULT false, -- if false send welcome email
     is_verified ENUM('false','pending','true') DEFAULT "false", -- if false send verify email
@@ -34,7 +34,7 @@ CREATE TABLE courses(
     access_type ENUM('free','premium') NOT NULL,
     created_by VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT NOW(),
-    updated_at DATETIME DEFAULT NOW(),
+    updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     is_deleted BOOLEAN DEFAULT false,
     FOREIGN KEY (created_by) REFERENCES users (id)
 );

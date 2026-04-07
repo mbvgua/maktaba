@@ -7,17 +7,14 @@ this project uses mysql as a database. there are files used in building the sche
 - [stored-procedures.sql](./stored-procedures.sql)
 - [triggers](./triggers.sql)
 
-To setup the db easily simple use the [setup](./setup) script, that will only prompt you for your password and build the db as needed.
+To setup the db easily simple use the [setup](./setup.sh) script, that will only prompt you for your password and build the db as needed.
 
 ```bash
-./build_db
+./setup.sh --build
 ```
 
 To drop the database, simple run the script to drop it with:
 
 ```bash
-./drop_db
+./setup.sh --drop
 ```
-
-
-
