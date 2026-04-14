@@ -46,12 +46,12 @@ elif [[ "$1" == "--drop" ]] || [[ "$1" == "-d" ]]; then
     read USER_CHOICE
 
     case "$USER_CHOICE" in
-        "y")
+        "y" | "Y" | "Yes" | "yes" | "YES")
             echo "Dropping $APP_DATABASE database..."
             echo "DROP DATABASE maktaba;" > "$TEMP_FILE"
             mariadb -u root -p < "$TEMP_FILE" > output.tab
             ;;
-        "n")
+        "n" | "N" | "No" | "no" | "NO")
             echo "Deletion of $APP_DATABASE database aborted..."
             ;;
         *)

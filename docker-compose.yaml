@@ -1,6 +1,5 @@
 services:
 
-  # frontend container in angular
   frontend:
     container_name: maktaba_frontend
     build:
@@ -11,21 +10,21 @@ services:
     volumes:
       - ./frontend/:/usr/src/app
       - node_modules:/usr/src/app/node_modules/
-    # depends_on:
-    #   - backend
+    depends_on:
+      - backend
 
-  # backend:
-  #   container_name: maktaba_backend
-  #   build:
-  #     context: backend
-  #   restart: unless-stopped
-  #   ports: 
-  #   - 4000:4000
-  #   volumes:
-  #   - ./backend/:/usr/src/app
-  #   - node_modules:/usr/src/app/node_modules/
-  #   depends_on:
-  #   - database
+  backend:
+    container_name: maktaba_backend
+    build:
+      context: backend
+    restart: unless-stopped
+    ports: 
+    - 4000:4000
+    volumes:
+    - ./backend/:/usr/src/app
+    - node_modules:/usr/src/app/node_modules/
+    depends_on:
+    - database
 
   database:
     container_name: maktaba_database
@@ -38,6 +37,16 @@ services:
     volumes:
       - database:/var/lib/mysql/
 
+  nginx:
+    container_name: makataba_reverse_proxy
+    image: nginx:alpine
+    ports:
+    - 8000:80
+    restart: unless-stopped
+    volumes:
+    - ./nginx.conf:/usr/bin/nginx.conf:ro
+
 volumes:
   node_modules:
   database:
+  nginx:

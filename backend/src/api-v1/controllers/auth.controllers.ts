@@ -32,6 +32,10 @@ export async function registerUser(request: Request, response: Response) {
     registerUserSchema,
   );
 
+    if (!isValidRequest) {
+        return;
+    }
+
   // create connection pool
   const connection = await pool.getConnection();
 

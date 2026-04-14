@@ -23,7 +23,7 @@
 - Push to your fork and open a Pull Request (PR) against the `main` branch.
 
 ### 4. Pull Request Guidelines
-- Keep PRs focused—avoid mixing unrelated changes.
+- Keep PRs focused to avoid mixing unrelated changes.
 - Make sure the code builds and passes any existing tests.
 - Write clear commit messages and PR descriptions.
 
