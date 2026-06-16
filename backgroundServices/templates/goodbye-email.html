@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+
+{% block title %} Goodbye email {% endblock %}
+
+{% block body %}
+
+    <h2>Well, this is awkward...</h2>
+    <p>I thought we had a good thing {{name}}</p>
+
+    <p>We’re sorry to see you go</p>
+
+    <p>
+        Your Maktaba account has been successfully deactivated. If this wasn’t
+        intentional, you have 7 days to contact us and we can restore your account,
+        After which your account will be permanently deleted!
+    </p>
+
+    <p>
+        If there’s anything we could’ve done better, reply to this email—we’re always
+        trying to improve Maktaba.
+    </p>
+
+    <p>
+        Cheers,<br />
+        Maktaba Team.
+    </p>
+
+{% endblock %}

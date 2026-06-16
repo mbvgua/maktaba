@@ -7,7 +7,7 @@ export async function validationHelper(
   schema: any,
 ) {
   /*
-   * schema validation helper for DRY code!
+   * schema validation helper; ensures DRY code!
    */
 
   // NOTE: you must destructure the `error` variable first

@@ -14,19 +14,19 @@ export const logger = winston.createLogger({
   transports: [
     // write log level -> error, fatal
     new winston.transports.File({
-      filename: path.resolve(logDir, "error/error.log"),
+      filename: path.resolve(logDir, "error.log"),
       level: "error",
     }),
     // write log level -> fatal, error, warn, info
     new winston.transports.File({
-      filename: path.resolve(logDir, "combined/combined.log"),
+      filename: path.resolve(logDir, "combined.log"),
     }),
   ],
 
   // handle exceptions
   exceptionHandlers: [
     new transports.File({
-      filename: path.resolve(logDir, "exceptions/exceptions.log"),
+      filename: path.resolve(logDir, "exceptions.log"),
     }),
   ],
 });

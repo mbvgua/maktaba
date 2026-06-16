@@ -1,0 +1,1 @@
+1. Create shared directory, where I can place models from both the frontend, backend and backgoundservices, instead of duplicating them across all three places. You should learn [pnpm workspaces](https://pnpm.io/workspaces) to do this effectively.

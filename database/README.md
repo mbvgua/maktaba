@@ -1,12 +1,20 @@
 ## Database
 
-This projects db is built primarily in Postgres Sql. The schema contains two main files:
+this project uses mysql as a database. there are files used in building the schema:
+
 - [tables.sql](./tables.sql)
+- [views.sql](./views.sql)
 - [stored-procedures.sql](./stored-procedures.sql)
+- [triggers](./triggers.sql)
 
-To setup the db easily simple use the [setup](./setup) script, that will only prompt you for your password and build the db as needed.
+To setup the db easily simple use the [setup](./setup.sh) script, that will only prompt you for your password and build the db as needed.
 
+```bash
+./setup.sh --build
+```
 
-## Resources
+To drop the database, simple run the script to drop it with:
 
-[aiven](https://aiven.io/tools/sql-syntax-checker)
+```bash
+./setup.sh --drop
+```
